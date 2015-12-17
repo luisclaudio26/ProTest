@@ -9,10 +9,22 @@ using std::string;
 class Atom
 {
 private:
-	double x, y, z;
+	vec_3d pos;
 	Element e;
 
 public:
+	Atom() {}
+	~Atom() {}
+
+	//-------------------------
+	//-------- Modify ---------
+	//-------------------------
+	void setPosition(vec_3d pos) { this->pos = pos; }
+	void setElement(Element e) { this->e = e; }
+
+	//-------------------------
+	//-------- Access ---------
+	//-------------------------
 	string info();
 };
 

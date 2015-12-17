@@ -19,20 +19,23 @@ enum Element {
 class Util
 {
 private:
+	Util();
 	static Util* ptr_instance;
 
 	map<string,Element> dict;
 
 public:
+	~Util() { delete Util::ptr_instance; }
+
 	static Util* instance() {
-		if(!ptr_instance)
-			ptr_instance = new Util();
-		return ptr_instance;
+		if(! Util::ptr_instance)
+			Util::ptr_instance = new Util();
+		return Util::ptr_instance;
 	}
 
-	Util();
-	~Util() { delete ptr_instance; }
-
+	//------------------------
+	//-------- TOOLS ---------
+	//------------------------
 	Element str_to_elem(string e);
 };
 

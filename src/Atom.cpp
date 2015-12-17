@@ -2,5 +2,11 @@
 
 string Atom::info()
 {
-	return string("Isto é um teste");
+	string out("");
+
+	out.append( std::to_string(this->pos.x) + " ");
+	out.append( std::to_string(this->pos.y) + " ");
+	out.append( std::to_string(this->pos.z) + "\n");
+
+	return out;
 }

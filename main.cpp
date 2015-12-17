@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "inc/PDBParser.h"
-using namespace std;
+using std::cout;
+using std::endl;
 
 int main(int argc, char** args)
 {
@@ -11,6 +12,8 @@ int main(int argc, char** args)
 	PDBParser in;
 
 	in.parse(args[1], atoms);
+	for(int i = 0; i < atoms.size(); i++)
+		cout<<atoms[i].info()<<endl;
 	
 	return 0;
 }

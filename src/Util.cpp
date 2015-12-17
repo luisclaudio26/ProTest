@@ -1,5 +1,7 @@
 #include "../inc/Util.h"
 
+Util* Util::ptr_instance = 0;
+
 Util::Util()
 {
 	//Initialize entries
