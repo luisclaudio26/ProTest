@@ -25,6 +25,7 @@ public:
 	//-------------------------
 	//-------- Access ---------
 	//-------------------------
+	Element element() { return this->e; }
 	string info();
 };
 
