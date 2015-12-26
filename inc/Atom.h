@@ -25,6 +25,7 @@ public:
 	//-------------------------
 	//-------- Access ---------
 	//-------------------------
+	vec_3d getPosition() { return this->pos; }
 	Element element() { return this->e; }
 	string info();
 };
