@@ -13,7 +13,7 @@ int main(int argc, char** args)
 
 	in.parse(args[1], atoms);
 	for(int i = 0; i < atoms.size(); i++)
-		cout<<atoms[i].info()<<"VDW rad "<<Util::instance()->van_der_waals_radius( atoms[i].element() )<<endl;
+		cout<<atoms[i].info()<<"\n VDW rad "<<Util::instance()->van_der_waals_radius( atoms[i].element() )<<endl;
 
 	return 0;
 }
