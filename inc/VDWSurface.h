@@ -7,6 +7,8 @@
 
 using std::vector;
 
+const double EPSILON = 0.0001;
+
 typedef struct {
 	vec_3d center;
 	double radius;

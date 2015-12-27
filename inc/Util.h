@@ -3,12 +3,23 @@
 
 #include <map>
 #include <string>
+#include <cmath>
 using std::string;
 using std::map;
 
-typedef struct {
+struct _vec_3d {
 	double x, y, z;
-} vec_3d;
+
+
+	double dist2(struct _vec_3d lhs) {
+		return (x-lhs.x)*(x-lhs.x) + (y-lhs.y)*(y-lhs.y) + (z-lhs.z)*(z-lhs.z);
+	}
+
+	double dist(struct _vec_3d lhs) {
+		return sqrt( dist2(lhs) );
+	}
+};
+typedef _vec_3d vec_3d;
 
 enum Element {
 	C,

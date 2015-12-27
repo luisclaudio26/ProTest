@@ -17,5 +17,20 @@ void VDWSurface::push_atom(Atom a)
 
 int VDWSurface::in(vec_3d p)
 {
-	return 0;
+	int out = 1;
+
+	for(auto s = surface_spheres.begin(); s != surface_spheres.end(); ++s)
+	{
+		double dist_centers = s->center.dist( p );
+
+		//if distance is (roughly) equal to radius, return 0
+		//if is not equal and is less then radius, return -1
+		//do nothing (that is, return 1) otherwise
+		if( dist_centers - s->radius < EPSILON )
+			out = 0;
+		else if( dist_centers - s->radius < 0)
+			out = -1;
+	}
+
+	return out;
 }
