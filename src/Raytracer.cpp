@@ -21,9 +21,17 @@ Raytracer::~Raytracer()
 	delete Raytracer::raytracer_ptr;
 }
 
+void Raytracer::plotXY(int i, int j, Uint32 color)
+{
+	Uint32* pixels = (Uint32*)this->surface->pixels;
+	pixels[(j*this->surface->w)+i] = color;
+}
+
+
 void Raytracer::drawSurface(ImplicitSurface* s, int w, int h)
 {
-	return;
+	vec_3d o = (vec_3d){0.0, 0.0, 0.0};
+	this->drawSurface(s, o, o, o, 1.0, w, h, 600, 800);
 }
 
 void Raytracer::drawSurface(ImplicitSurface *s, 
@@ -39,12 +47,7 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 	for(int i = 0; i < nX; i++)
 		for(int j = 0; j < nY; j++)
 		{
-			double u, v;
-			//pixel_position_cam_frame( );
-
-			//Uint32 p = throw_ray();
-
-
+			this->plotXY(i, j, 0x0000FF00);
 		}
 
 	return;

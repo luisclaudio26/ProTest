@@ -11,6 +11,11 @@ private:
 	static Raytracer* raytracer_ptr;
 	SDL_Surface* surface;
 
+	//-----------------------------------------
+	//---------- Internal functions -----------
+	//-----------------------------------------
+	void plotXY(int i, int j, Uint32 color);
+
 	void drawSurface(ImplicitSurface *s, 
 						vec_3d cam_pos, 
 						vec_3d cam_direction, 
