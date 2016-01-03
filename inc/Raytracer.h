@@ -18,11 +18,12 @@ private:
 
 	void drawSurface(ImplicitSurface *s, 
 						vec_3d cam_pos, 
-						vec_3d cam_direction, 
-						vec_3d cam_up, 
+						vec_3d cam_frame[3], 
 						double focal_d, 
 						int w, int h,
 						int nX, int nY);
+
+	Uint32 throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s);
 
 	//-------------------------
 	//--------- CTOR ----------
@@ -42,7 +43,7 @@ public:
 	}
 
 
-	void drawSurface(ImplicitSurface* s, int w, int h);	
+	void drawSurface(ImplicitSurface* s, int nX, int nY);	
 };
 
 #endif
