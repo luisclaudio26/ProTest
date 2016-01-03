@@ -10,8 +10,43 @@ using std::map;
 struct _vec_3d {
 	double x, y, z;
 
+	struct _vec_3d unit() {
+		double norm = l2_norm();
+
+		struct _vec_3d out;
+		out.x = x / norm;
+		out.y = y / norm;
+		out.z = z / norm;
+
+		return out;
+	}
+
+	void operator=(struct _vec_3d lhs) {
+		x = lhs.x;
+		y = lhs.y;
+		z = lhs.z;
+	}
+
+	struct _vec_3d operator*(double lhs) {
+		struct _vec_3d out;
+		out.x = x * lhs;
+		out.y = y * lhs;
+		out.z = z * lhs;
+		return out;
+	}
+
 	struct _vec_3d operator-(struct _vec_3d lhs) {
 		return (struct _vec_3d){x-lhs.x, y-lhs.y, z-lhs.z};
+	}
+
+	struct _vec_3d operator+(struct _vec_3d lhs) {
+		return (struct _vec_3d){x+lhs.x, y+lhs.y, z+lhs.z};
+	}
+
+	void operator+=(struct _vec_3d lhs) {
+		x += lhs.x;
+		y += lhs.y;
+		z += lhs.z;
 	}
 
 	struct _vec_3d cross(struct _vec_3d lhs) {
@@ -28,6 +63,10 @@ struct _vec_3d {
 
 	double dist(struct _vec_3d lhs) {
 		return sqrt( dist2(lhs) );
+	}
+
+	double l2_norm() {
+		return sqrt(x*x + y*y + z*z);
 	}
 };
 typedef _vec_3d vec_3d;
