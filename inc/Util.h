@@ -21,6 +21,10 @@ struct _vec_3d {
 		return out;
 	}
 
+	double dot(struct _vec_3d lhs) {
+		return x*lhs.x + y*lhs.y + z*lhs.z;
+	}
+
 	void operator=(struct _vec_3d lhs) {
 		x = lhs.x;
 		y = lhs.y;
