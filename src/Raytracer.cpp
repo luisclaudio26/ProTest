@@ -105,6 +105,8 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 			direction = direction + cam_frame[1] * pixel_pos_cam_frame.y;
 			direction = direction + cam_frame[0] * pixel_pos_cam_frame.x;
 
+			direction = direction.unit();
+
 			//cast ray
 			Uint32 p = throw_ray(origin, direction, s);
 
@@ -120,5 +122,18 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 
 Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s)
 {
-	return 0xFFFFFFFF;
+	double cutoff = 15.0, step = 0.1;
+
+	//First approach: numerical/iterative
+	//Go along the ray and check whether we intersected the surface
+	vec_3d probe = origin;
+
+	for(int t = 0; t < (int)(cutoff/step); t++)
+	{
+		if( s->in(probe) <= 0 )
+			return 0x00FF0000;
+		probe += direction*step;
+	}
+
+	return 0x00000F00;
 }
