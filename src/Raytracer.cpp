@@ -11,7 +11,7 @@ Raytracer::Raytracer()
     SDL_WM_SetCaption("SDL Test", "SDL Test"); 
 
     // create window 
-    this->surface = SDL_SetVideoMode(600, 800, 32,
+    this->surface = SDL_SetVideoMode(800, 600, 32,
                                        SDL_HWSURFACE|SDL_DOUBLEBUF);
 }
 
@@ -31,7 +31,7 @@ void Raytracer::plotXY(int i, int j, Uint32 color)
 void Raytracer::drawSurface(ImplicitSurface* s, int w, int h)
 {
 	vec_3d o = (vec_3d){0.0, 0.0, 0.0};
-	this->drawSurface(s, o, o, o, 1.0, w, h, 600, 800);
+	this->drawSurface(s, o, o, o, 1.0, w, h, 800, 600);
 }
 
 void Raytracer::drawSurface(ImplicitSurface *s, 
@@ -43,12 +43,42 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 	int nX, int nY)
 {
 
-	//Loop through pixels
+	//clean screen
+	SDL_FillRect(this->surface, 0, SDL_MapRGB(this->surface->format, 0, 0, 0));
+
+	//Loop through pixels, draw
 	for(int i = 0; i < nX; i++)
 		for(int j = 0; j < nY; j++)
 		{
 			this->plotXY(i, j, 0x0000FF00);
 		}
+
+	//show screen
+    SDL_Flip(this->surface);
+
+    //wait for quit event
+    SDL_Event event; 
+    bool quit = false; 
+ 
+    while (!quit) 
+        if (SDL_PollEvent(&event))  
+            switch (event.type) 
+            { 
+                /* close button clicked */ 
+                case SDL_QUIT: 
+                    quit = true; 
+                    break; 
+
+                /* handle the keyboard */ 
+                case SDL_KEYDOWN: 
+                    switch (event.key.keysym.sym) 
+                    { 
+                        case SDLK_ESCAPE:
+                            quit = true; 
+                            break;
+                    } 
+                    break; 
+            } 
 
 	return;
 }
