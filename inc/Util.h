@@ -10,6 +10,17 @@ using std::map;
 struct _vec_3d {
 	double x, y, z;
 
+	struct _vec_3d operator-(struct _vec_3d lhs) {
+		return (struct _vec_3d){x-lhs.x, y-lhs.y, z-lhs.z};
+	}
+
+	struct _vec_3d cross(struct _vec_3d lhs) {
+		double s1 = y*lhs.z - z*lhs.y;
+		double s2 = z*lhs.x - x*lhs.z;
+		double s3 = x*lhs.y - y*lhs.x;
+
+		return (struct _vec_3d){s1, s2, s3};
+	}
 
 	double dist2(struct _vec_3d lhs) {
 		return (x-lhs.x)*(x-lhs.x) + (y-lhs.y)*(y-lhs.y) + (z-lhs.z)*(z-lhs.z);
