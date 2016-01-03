@@ -126,6 +126,8 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s)
 {
 	double cutoff = 15.0, step = 0.1;
+	vec_3d point_light_pos = (vec_3d){-10.0, 10.0, 10.0};
+	double point_light_val = 1.5;
 
 	//First approach: numerical/iterative
 	//Go along the ray and check whether we intersected the surface
@@ -136,9 +138,21 @@ Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s)
 		//shading
 		if( s->in(probe) <= 0 )
 		{
-			//compute normal ??
+			//compute normal
 			vec_3d normal = s->normal_at( probe );
-			return 0x00FF0000;
+
+			//compute light direction
+			vec_3d light_dir = (probe - point_light_pos).unit();
+
+			//compute diffuse light
+			double diffLightFactor = normal.dot( light_dir );
+
+			if(diffLightFactor < 0)
+				diffLightFactor = 0;
+
+			Uint32 colorOut = (int)(0xFF*diffLightFactor);
+
+			return colorOut;
 		}
 
 		//Advance ray
