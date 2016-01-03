@@ -35,3 +35,25 @@ int VDWSurface::in(vec_3d p)
 
 	return out;
 }
+
+vec_3d VDWSurface::normal_at(vec_3d p)
+{
+	int closest = 0;
+	double dist_closest = 10000.0;
+
+	//look for closest atom
+	for(int i = 0; i < this->surface_spheres.size(); i++)
+	{
+		vec_3d sphere_center = this->surface_spheres[i].center;
+		double dist_current = p.dist2( sphere_center );
+
+		if( dist_current < dist_closest )
+		{
+			closest = i;
+			dist_closest = dist_current;
+		}
+	}
+
+	//compute p - center_closest_atom
+	return (p - this->surface_spheres[closest].center).unit();
+}

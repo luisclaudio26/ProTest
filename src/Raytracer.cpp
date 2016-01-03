@@ -89,8 +89,6 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 	//clean screen
 	SDL_FillRect(this->surface, 0, SDL_MapRGB(this->surface->format, 0, 0, 0));
 
-	cout<<"Casting rays...\n";
-
 	//Loop through pixels, draw
 	for(int i = 0; i < nX; i++)
 		for(int j = 0; j < nY; j++)
@@ -117,8 +115,6 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 			this->plotXY(i, j, p);
 		}
 
-	cout<<"done!\n";
-
 	//show screen
 	SDL_Flip(this->surface);
     
@@ -137,8 +133,15 @@ Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s)
 
 	for(int t = 0; t < (int)(cutoff/step); t++)
 	{
+		//shading
 		if( s->in(probe) <= 0 )
+		{
+			//compute normal ??
+			vec_3d normal = s->normal_at( probe );
 			return 0x00FF0000;
+		}
+
+		//Advance ray
 		probe += direction*step;
 	}
 

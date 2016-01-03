@@ -35,7 +35,8 @@ public:
 	//-------------------------------------------
 	//--------- FROM IMPLICITSURFACE.h ----------
 	//-------------------------------------------
-	int in(vec_3d p) override;	
+	int in(vec_3d p) override;
+	vec_3d normal_at(vec_3d p) override;
 };
 
 #endif
