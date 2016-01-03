@@ -1,4 +1,6 @@
 #include "../inc/Raytracer.h"
+#include <iostream>
+using std::cout;
 
 //-------------------------------------------------------------------------
 //--------------------- INTERNAL TO RAYTRACER.CPP -------------------------
@@ -87,6 +89,8 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 	//clean screen
 	SDL_FillRect(this->surface, 0, SDL_MapRGB(this->surface->format, 0, 0, 0));
 
+	cout<<"Casting rays...\n";
+
 	//Loop through pixels, draw
 	for(int i = 0; i < nX; i++)
 		for(int j = 0; j < nY; j++)
@@ -113,8 +117,11 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 			this->plotXY(i, j, p);
 		}
 
+	cout<<"done!\n";
+
 	//show screen
-    SDL_Flip(this->surface);
+	SDL_Flip(this->surface);
+    
     waitForKey();
  
 	return;
