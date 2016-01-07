@@ -23,7 +23,7 @@ private:
 						int w, int h,
 						int nX, int nY);
 
-	Uint32 throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s);
+	Uint32 throw_ray(vec_3d origin, vec_3d direction, vec_3d cam_pos, ImplicitSurface* s);
 
 	//-------------------------
 	//--------- CTOR ----------

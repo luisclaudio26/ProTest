@@ -1,5 +1,6 @@
 #include "../inc/Raytracer.h"
 #include <iostream>
+#include <cmath>
 using std::cout;
 
 //-------------------------------------------------------------------------
@@ -110,7 +111,7 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 			direction = direction.unit();
 
 			//cast ray
-			Uint32 p = throw_ray(origin, direction, s);
+			Uint32 p = throw_ray(origin, direction, cam_pos, s);
 
 			this->plotXY(i, j, p);
 		}
@@ -123,7 +124,7 @@ void Raytracer::drawSurface(ImplicitSurface *s,
 	return;
 }
 
-Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s)
+Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, vec_3d cam_pos, ImplicitSurface* s)
 {
 	double cutoff = 15.0, step = 0.1;
 	vec_3d point_light_pos = (vec_3d){-10.0, 10.0, 10.0};
@@ -150,7 +151,19 @@ Uint32 Raytracer::throw_ray(vec_3d origin, vec_3d direction, ImplicitSurface* s)
 			if(diffLightFactor < 0)
 				diffLightFactor = 0;
 
-			Uint32 colorOut = (int)(0xFF*diffLightFactor*point_light_val);
+			//Compute specular reflection
+			vec_3d light_reflected = light_dir.invert().reflect( normal ).unit();
+			vec_3d point_to_cam = (cam_pos - probe).unit();
+
+			double specLightFactor = light_reflected.dot(point_to_cam);
+			specLightFactor = pow(specLightFactor, 20);
+
+			double ambientLightFactor = 0.3;
+
+			Uint32 colorOut = 0;
+			colorOut += (int)(0xFF*diffLightFactor*0.4);
+			colorOut += (int)(0xFF*specLightFactor*0.5);
+			colorOut += (int)(0xFF*ambientLightFactor*0.1);
 
 			return colorOut;
 		}
