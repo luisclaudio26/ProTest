@@ -10,6 +10,23 @@ using std::map;
 struct _vec_3d {
 	double x, y, z;
 
+	struct _vec_3d invert() {
+		return (struct _vec_3d){-x, -y, -z};
+	}
+
+	struct _vec_3d reflect(struct _vec_3d normal) {
+		struct _vec_3d out = normal;
+
+		out = out * 2.0;
+		out = out * this->dot(normal);
+		
+		out.x -= x;
+		out.y -= y;
+		out.z -= z;
+
+		return out;
+	}
+
 	struct _vec_3d unit() {
 		double norm = l2_norm();
 
